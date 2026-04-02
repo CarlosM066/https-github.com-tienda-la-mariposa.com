@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>La Mariposa - Tienda Online | Transfermóvil + Reservas</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        /* ====== LOGIN SCREEN ====== */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            animation: slideUp 0.4s ease;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .login-header h1 {
+            color: #667eea;
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .login-form input {
+            padding: 14px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            outline: none;
+        }
+
+        .login-form input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-form input::placeholder {
+            color: #9ca3af;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .login-error.show {
+            display: block;
+        }
+
+        .demo-hint {
+            background: #eef2ff;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            color: #3730a3;
+            text-align: center;
+            margin-top: 16px;
+            border-left: 4px solid #667eea;
+        }
+
+        /* ====== HEADER ====== */
+        .header {
+            background-color: #232f3e;
+            padding: 12px 24px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo h1 {
+            color: #ffc107;
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+        .logo span {
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 300;
+        }
+
+        .search-bar {
+            flex: 1;
+            display: flex;
+            max-width: 600px;
+        }
+        .search-bar input {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-bar button {
+            background-color: #febd69;
+            border: none;
+            padding: 0 18px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .search-bar button:hover {
+            background-color: #f3a847;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 24px;
+            color: white;
+            align-items: center;
+        }
+        .nav-icons .icon-tab {
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .nav-icons .icon-tab i {
+            font-size: 1.4rem;
+        }
+        .nav-icons .icon-tab span {
+            font-size: 0.75rem;
+            display: block;
+        }
+        .nav-icons .icon-tab:hover {
+            color: #febd69;
+            transform: scale(1.05);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .logout-btn:hover {
+            background: #dc2626;
+        }
+
+        /* ====== ADMIN LOCK SCREEN ====== */
+        .admin-lock-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1500;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-lock-content {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            animation: slideUp 0.4s ease;
+        }
+
+        .admin-lock-content i {
+            font-size: 4rem;
+            color: #ef4444;
+            margin-bottom: 16px;
+        }
+
+        .admin-lock-content h2 {
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+
+        .admin-lock-content p {
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .admin-lock-content button {
+            background: #232f3e;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .admin-lock-content button:hover {
+            background: #3a4e66;
+        }
+
+        /* Dashboard Panel */
+        .dashboard-panel {
+            background: white;
+            margin: 20px 24px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .dashboard-header {
+            background: #f7f8fa;
+            padding: 14px 24px;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+        .role-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .role-btn {
+            background: #e5e7eb;
+            border: none;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .role-btn.active {
+            background: #232f3e;
+            color: white;
+        }
+        .role-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .dashboard-content {
+            padding: 20px 24px;
+        }
+        .admin-section, .associate-section {
+            transition: 0.2s;
+        }
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            align-items: flex-end;
+        }
+        .form-group input, .form-group select {
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            flex: 1 1 180px;
+        }
+        .btn-primary {
+            background: #232f3e;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .btn-primary:hover {
+            background: #3a4e66;
+            transform: scale(0.97);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-success {
+            background: #0f5c3e;
+        }
+        .btn-success:hover {
+            background: #1a7a52;
+        }
+        .product-list-admin {
+            margin-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            padding-top: 16px;
+        }
+        .product-item-admin {
+            display: flex;
+            justify-content: space-between;
+            background: #f9fafb;
+            margin: 8px 0;
+            padding: 10px 12px;
+            border-radius: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        /* Productos grid */
+        .products-section {
+            margin: 20px 24px;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-left: 6px solid #febd69;
+            padding-left: 16px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 28px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            animation: fadeInUp 0.4s ease;
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -12px rgba(0,0,0,0.2);
+        }
+        .product-img {
+            background: #f3f4f6;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            transition: 0.2s;
+        }
+        .product-info {
+            padding: 16px;
+        }
+        .product-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+        .product-price {
+            color: #b12704;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin: 8px 0;
+        }
+        .stock-badge {
+            font-size: 0.7rem;
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 20px;
+            background: #e5e7eb;
+            margin-bottom: 8px;
+        }
+        .stock-badge.low {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+        .product-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .product-actions button {
+            flex: 1;
+            padding: 8px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            border: none;
+        }
+        .btn-cart {
+            background: #ffd814;
+        }
+        .btn-cart:hover {
+            background: #f7ca00;
+        }
+        .btn-reserve {
+            background: #e0e7ff;
+            color: #1e3a8a;
+        }
+        .btn-reserve:hover {
+            background: #c7d2fe;
+        }
+        .reserved-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f59e0b;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        /* Modal de pago Transfermóvil */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.2s;
+        }
+        .modal-content {
+            background: white;
+            max-width: 500px;
+            width: 90%;
+            border-radius: 32px;
+            padding: 24px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.2);
+        }
+        .modal-content h3 {
+            margin-bottom: 16px;
+        }
+        .transfer-info {
+            background: #f0fdf4;
+            padding: 16px;
+            border-radius: 20px;
+            margin: 16px 0;
+        }
+        .qr-placeholder {
+            background: #e5e7eb;
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 20px;
+            margin: 12px 0;
+        }
+        .toast-msg {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #232f3e;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 40px;
+            z-index: 1100;
+            animation: fadeIn 0.2s;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        footer {
+            text-align: center;
+            padding: 24px;
+            background: #232f3e;
+            color: #ccc;
+            margin-top: 40px;
+        }
+        @media (max-width: 700px) {
+            .header { flex-direction: column; align-items: stretch; }
+            .search-bar { max-width: 100%; }
+            .product-actions { flex-direction: column; }
+            .login-container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-container">
+        <div class="login-header">
+            <h1>🦋 La Mariposa</h1>
+            <p>Tienda Online - Esencia & Estilo</p>
+        </div>
+        <div class="login-form">
+            <div class="login-error" id="loginError"></div>
+            <input type="email" id="loginEmail" placeholder="Ingresa tu email" autocomplete="email">
+            <input type="password" id="loginPassword" placeholder="Contraseña (cualquier valor)" autocomplete="current-password">
+            <button class="login-btn" id="loginBtn">Ingresar</button>
+            <div class="demo-hint">
+                <i class="fas fa-info-circle"></i><br>
+                <strong>Admin:</strong> carlosmanuelfabelo@gmail.com<br>
+                <strong>Usuario:</strong> cualquier otro email
+            </div>
+        </div>
+    </div>
+</div>
+
+<header class="header" id="mainHeader" style="display:none;">
+    <div class="logo">
+        <h1>La Mariposa <span>✦ esencia & estilo</span></h1>
+    </div>
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar productos...">
+        <button id="searchBtn"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="nav-icons">
+        <div class="icon-tab" id="adminBtnHeader" style="display:none;"><i class="fas fa-user-cog"></i><span>Admin</span></div>
+        <div class="icon-tab" id="associateBtnHeader"><i class="fas fa-handshake"></i><span>Asociado</span></div>
+        <div class="icon-tab" id="cartIconHeader"><i class="fas fa-shopping-cart"></i><span>Carrito</span></div>
+        <div class="icon-tab" id="reservationsHeader"><i class="fas fa-calendar-check"></i><span>Reservas</span></div>
+        <div class="user-profile">
+            <i class="fas fa-user-circle"></i>
+            <span id="userEmail" style="font-size:0.85rem;"></span>
+        </div>
+        <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Salir</button>
+    </div>
+</header>
+
+<!-- Panel Admin/Asociado -->
+<div class="dashboard-panel" id="dashboardPanel" style="display:none;">
+    <div class="dashboard-header">
+        <h3><i class="fas fa-tachometer-alt"></i> Panel de Control</h3>
+        <div class="role-buttons">
+            <button class="role-btn active" data-role="admin" id="adminRoleBtn">👑 Administrador</button>
+            <button class="role-btn" data-role="associate" id="associateRoleBtn">🤝 Asociado</button>
+        </div>
+    </div>
+    <div class="dashboard-content">
+        <div id="adminSection" class="admin-section">
+            <h4>✏️ Gestión de Productos (Admin)</h4>
+            <div class="form-group">
+                <input type="text" id="prodName" placeholder="Nombre producto">
+                <input type="number" id="prodPrice" placeholder="Precio (€)">
+                <input type="number" id="prodStock" placeholder="Stock">
+                <input type="text" id="prodIcon" placeholder="Icono (ej: fa-dress)">
+                <button id="addProductBtn" class="btn-primary"><i class="fas fa-plus"></i> Agregar</button>
+            </div>
+            <div class="product-list-admin" id="adminProductList"></div>
+            <div style="margin-top:20px;">
+                <h4>📋 Lista de Reservas Activas</h4>
+                <div id="reservationsAdminList"></div>
+            </div>
+        </div>
+        <div id="associateSection" class="associate-section" style="display:none;">
+            <h4>📊 Panel del Asociado - Comisiones</h4>
+            <p>¡Comparte productos y gana comisión del 8%!</p>
+            <div style="background:#eef2ff; padding: 16px; border-radius: 20px; margin: 16px 0;">
+                <label>🔗 Tu enlace de afiliado:</label>
+                <div style="display:flex; gap:8px; margin-top:8px;">
+                    <input type="text" id="associateLink" readonly value="https://lamariposa.store/ref/ASOC123">
+                    <button id="copyLinkBtn" class="btn-primary">Copiar</button>
+                </div>
+            </div>
+            <div><strong>📈 Ventas referidas:</strong> <span id="associateSales">0</span> · Comisión: <span id="associateCommission">0</span> €</div>
+            <div style="margin-top: 20px;"><i class="fas fa-chart-line"></i> Top productos:</div>
+            <ul id="topProductsAssociate" style="margin-left: 20px;"></ul>
+            <button id="simulateSaleBtn" class="btn-primary" style="margin-top:15px;"><i class="fas fa-chart-line"></i> Simular venta referida</button>
+        </div>
+    </div>
+</div>
+
+<!-- Productos -->
+<section class="products-section" id="productsSection" style="display:none;">
+    <div class="section-title"><i class="fas fa-butterfly"></i> Productos La Mariposa</div>
+    <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<footer id="mainFooter" style="display:none;">
+    <p>© 2025 La Mariposa - Pagos por Transfermóvil | Reserva tu producto favorito</p>
+</footer>
+
+<script>
+    // ---------- AUTENTICACIÓN ----------
+    const ADMIN_EMAIL = "carlosmanuelfabelo@gmail.com";
+    let currentUser = null;
+    let isAdmin = false;
+
+    function showLoginScreen() {
+        document.getElementById("loginScreen").style.display = "flex";
+        document.getElementById("mainHeader").style.display = "none";
+        document.getElementById("dashboardPanel").style.display = "none";
+        document.getElementById("productsSection").style.display = "none";
+        document.getElementById("mainFooter").style.display = "none";
+    }
+
+    function hideLoginScreen() {
+        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById("mainHeader").style.display = "flex";
+        document.getElementById("productsSection").style.display = "block";
+        document.getElementById("mainFooter").style.display = "block";
+    }
+
+    function handleLogin() {
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value.trim();
+        const errorDiv = document.getElementById("loginError");
+
+        if(!email || !password) {
+            errorDiv.textContent = "Por favor completa todos los campos";
+            errorDiv.classList.add("show");
+            return;
+        }
+
+        if(!email.includes("@")) {
+            errorDiv.textContent = "Email inválido";
+            errorDiv.classList.add("show");
+            return;
+        }
+
+        // Login exitoso
+        currentUser = email;
+        isAdmin = (email.toLowerCase() === ADMIN_EMAIL.toLowerCase());
+        
+        document.getElementById("userEmail").textContent = email;
+        errorDiv.classList.remove("show");
+        
+        if(isAdmin) {
+            document.getElementById("adminBtnHeader").style.display = "flex";
+            document.getElementById("dashboardPanel").style.display = "block";
+        } else {
+            document.getElementById("adminBtnHeader").style.display = "none";
+            document.getElementById("dashboardPanel").style.display = "none";
+        }
+        
+        hideLoginScreen();
+        fullRender();
+        setRole(isAdmin ? "admin" : "associate");
+    }
+
+    function handleLogout() {
+        currentUser = null;
+        isAdmin = false;
+        cart = [];
+        document.getElementById("loginEmail").value = "";
+        document.getElementById("loginPassword").value = "";
+        document.getElementById("loginError").classList.remove("show");
+        showLoginScreen();
+    }
+
+    // ---------- DATOS ----------
+    let products = [
+        { id: "p1", name: "Vestido Mariposa Azul", price: 49.99, stock: 5, icon: "fa-tshirt", sales: 12, reserved: 0 },
+        { id: "p2", name: "Perfume Esencia Floral", price: 35.50, stock: 8, icon: "fa-spray-can-sparkles", sales: 28, reserved: 0 },
+        { id: "p3", name: "Bolso Ala de Mariposa", price: 59.90, stock: 3, icon: "fa-bag-shopping", sales: 8, reserved: 0 },
+        { id: "p4", name: "Aretes Metamorfosis", price: 19.99, stock: 12, icon: "fa-gem", sales: 22, reserved: 0 }
+    ];
+    
+    let cart = [];
+    let reservations = [];
+    let associateStats = { referredSales: 0, totalCommission: 0 };
+    let currentRole = "associate";
+    const COMMISSION = 0.08;
+
+    // helpers
+    function saveData() {
+        localStorage.setItem("mariposa_products", JSON.stringify(products));
+        localStorage.setItem("mariposa_associate", JSON.stringify(associateStats));
+        localStorage.setItem("mariposa_reservations", JSON.stringify(reservations));
+    }
+    
+    function loadData() {
+        const storedProducts = localStorage.getItem("mariposa_products");
+        if(storedProducts) products = JSON.parse(storedProducts);
+        const storedAssoc = localStorage.getItem("mariposa_associate");
+        if(storedAssoc) associateStats = JSON.parse(storedAssoc);
+        const storedRes = localStorage.getItem("mariposa_reservations");
+        if(storedRes) reservations = JSON.parse(storedRes);
+    }
+
+    function showToast(msg, bgColor="#232f3e") {
+        let old = document.querySelector(".toast-msg");
+        if(old) old.remove();
+        let toast = document.createElement("div");
+        toast.className = "toast-msg";
+        toast.style.background = bgColor;
+        toast.innerHTML = `<i class="fas fa-info-circle"></i> ${msg}`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+    }
+
+    function showAdminLockModal() {
+        const modalHtml = `
+            <div class="admin-lock-overlay" id="adminLockOverlay">
+                <div class="admin-lock-content">
+                    <i class="fas fa-lock"></i>
+                    <h2>Acceso Restringido</h2>
+                    <p>El panel de administrador solo es accesible para el administrador autorizado.</p>
+                    <button id="closeAdminLockBtn">Entendido</button>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML("beforeend", modalHtml);
+        document.getElementById("closeAdminLockBtn").addEventListener("click", () => {
+            document.getElementById("adminLockOverlay")?.remove();
+        });
+    }
+
+    function renderProductsGrid(filter = "") {
+        const grid = document.getElementById("productsGrid");
+        let filtered = products.filter(p => p.name.toLowerCase().includes(filter.toLowerCase()));
+        if(filtered.length === 0) { grid.innerHTML = `<div style="grid-column:1/-1; text-align:center;">🦋 No hay productos</div>`; return; }
+        grid.innerHTML = filtered.map(prod => {
+            const availableStock = prod.stock - (prod.reserved || 0);
+            const isLowStock = availableStock <= 2 && availableStock > 0;
+            const isOut = availableStock <= 0;
+            return `
+            <div class="product-card" data-id="${prod.id}">
+                ${(prod.reserved > 0) ? `<div class="reserved-badge"><i class="fas fa-clock"></i> ${prod.reserved} reservados</div>` : ''}
+                <div class="product-img"><i class="fas ${prod.icon || 'fa-box'} fa-4x" style="color:#3b4b5e;"></i></div>
+                <div class="product-info">
+                    <div class="product-title">${escapeHtml(prod.name)}</div>
+                    <div class="product-price">${prod.price.toFixed(2)} €</div>
+                    <div class="stock-badge ${isLowStock ? 'low' : ''}"><i class="fas fa-boxes"></i> Disponibles: ${availableStock}</div>
+                    <div class="product-actions">
+                        <button class="btn-cart add-to-cart" data-id="${prod.id}" ${isOut ? 'disabled style="opacity:0.5;"' : ''}><i class="fas fa-cart-plus"></i> ${isOut ? 'Agotado' : 'Carrito'}</button>
+                        <button class="btn-reserve reserve-product" data-id="${prod.id}" ${isOut ? 'disabled' : ''}><i class="fas fa-calendar-alt"></i> Reservar</button>
+                    </div>
+                </div>
+            </div>`;
+        }).join("");
+        document.querySelectorAll(".add-to-cart").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const id = btn.getAttribute("data-id");
+                addToCart(id);
+            });
+        });
+        document.querySelectorAll(".reserve-product").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const id = btn.getAttribute("data-id");
+                openReserveModal(id);
+            });
+        });
+    }
+
+    function addToCart(productId) {
+        const prod = products.find(p => p.id === productId);
+        if(!prod) return;
+        const available = prod.stock - (prod.reserved || 0);
+        if(available <= 0) { showToast("Sin stock disponible", "#b91c1c"); return; }
+        let cartItem = cart.find(i => i.id === productId);
+        if(cartItem) { cartItem.quantity++; }
+        else { cart.push({ id: productId, quantity: 1 }); }
+        showToast(`📦 ${prod.name} añadido al carrito`, "#0f5c3e");
+        updateCartBadge();
+    }
+
+    function updateCartBadge() {
+        const totalQ = cart.reduce((acc,i)=> acc + i.quantity,0);
+        const cartSpan = document.querySelector("#cartIconHeader span");
+        if(cartSpan) cartSpan.innerText = `Carrito (${totalQ})`;
+    }
+
+    function openReserveModal(productId) {
+        const prod = products.find(p => p.id === productId);
+        if(!prod) return;
+        const available = prod.stock - (prod.reserved || 0);
+        if(available <= 0) { showToast("No hay stock disponible para reservar", "#b91c1c"); return; }
+        const modalHtml = `
+            <div class="modal-overlay" id="paymentModal">
+                <div class="modal-content">
+                    <h3><i class="fas fa-hand-holding-heart"></i> Reservar: ${escapeHtml(prod.name)}</h3>
+                    <p>Precio: <strong>${prod.price.toFixed(2)} €</strong></p>
+                    <label>Cantidad (máx ${available}):</label>
+                    <input type="number" id="reserveQty" min="1" max="${available}" value="1" style="width:100%; padding:8px; margin:10px 0; border-radius:12px; border:1px solid #ccc;">
+                    
+                    <div class="transfer-info">
+                        <i class="fas fa-mobile-alt"></i> <strong>Pago por Transfermóvil (Cuba)</strong><br>
+                        <small>Número: +53 5XXXXXXX | Usuario: La Mariposa</small>
+                        <div class="qr-placeholder">
+                            <i class="fas fa-qrcode fa-3x"></i> <span style="margin-left:8px;">Escanea para pagar</span>
+                        </div>
+                        <label>Código de confirmación (transferencia):</label>
+                        <input type="text" id="transferCode" placeholder="Ej: 123456" style="width:100%; padding:8px; margin:8px 0; border-radius:12px;">
+                    </div>
+                    <div style="display:flex; gap:12px; margin-top:16px;">
+                        <button id="confirmReserveBtn" class="btn-primary btn-success" style="flex:1;">✅ Confirmar reserva</button>
+                        <button id="closeModalBtn" class="btn-primary" style="background:#6c757d; flex:1;">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML("beforeend", modalHtml);
+        document.getElementById("closeModalBtn").addEventListener("click", () => document.getElementById("paymentModal")?.remove());
+        document.getElementById("confirmReserveBtn").addEventListener("click", () => {
+            const qty = parseInt(document.getElementById("reserveQty")?.value || "1");
+            const code = document.getElementById("transferCode")?.value.trim();
+            if(qty < 1 || qty > available) { showToast("Cantidad no válida", "#b91c1c"); return; }
+            if(!code) { showToast("Ingrese el código de Transfermóvil", "#b91c1c"); return; }
+            prod.reserved = (prod.reserved || 0) + qty;
+            const newReservation = {
+                id: "res"+Date.now(),
+                productId: prod.id,
+                productName: prod.name,
+                quantity: qty,
+                totalPrice: prod.price * qty,
+                transferCode: code,
+                date: new Date().toLocaleString(),
+                status: "confirmada"
+            };
+            reservations.push(newReservation);
+            saveData();
+            renderProductsGrid(document.getElementById("searchInput")?.value || "");
+            renderAdminProductList();
+            renderReservationsList();
+            showToast(`✨ Reserva realizada de ${qty} x ${prod.name}. Pago por Transfermóvil registrado.`, "#2c7a4d");
+            document.getElementById("paymentModal")?.remove();
+        });
+    }
+
+    function renderAdminProductList() {
+        const container = document.getElementById("adminProductList");
+        if(!container) return;
+        if(products.length === 0) { container.innerHTML = "<p>No hay productos</p>"; return; }
+        container.innerHTML = products.map(prod => `
+            <div class="product-item-admin">
+                <div><i class="fas ${prod.icon}"></i> <strong>${escapeHtml(prod.name)}</strong> - ${prod.price}€ | Stock: ${prod.stock} | Reservados: ${prod.reserved || 0} | Ventas: ${prod.sales}</div>
+                <button class="delete-product-btn" data-id="${prod.id}" style="background:#ef4444; border:none; color:white; border-radius:30px; padding:4px 12px;"><i class="fas fa-trash-alt"></i> Eliminar</button>
+            </div>
+        `).join("");
+        document.querySelectorAll(".delete-product-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                const id = btn.getAttribute("data-id");
+                products = products.filter(p => p.id !== id);
+                saveData();
+                fullRender();
+                showToast("Producto eliminado", "#ef4444");
+            });
+        });
+    }
+
+    function renderReservationsList() {
+        const adminResDiv = document.getElementById("reservationsAdminList");
+        if(adminResDiv) {
+            if(reservations.length === 0) { adminResDiv.innerHTML = "<p>No hay reservas aún.</p>"; return; }
+            adminResDiv.innerHTML = reservations.map(res => `
+                <div style="background:#fef9e3; padding:10px; margin:8px 0; border-radius:16px;">
+                    <i class="fas fa-calendar-check"></i> <strong>${escapeHtml(res.productName)}</strong> x${res.quantity} - Total: ${res.totalPrice.toFixed(2)}€<br>
+                    <small>Código Transfer: ${res.transferCode} | ${res.date}</small>
+                </div>
+            `).join("");
+        }
+    }
+
+    function renderAssociatePanel() {
+        document.getElementById("associateSales").innerText = associateStats.referredSales;
+        document.getElementById("associateCommission").innerText = associateStats.totalCommission.toFixed(2);
+        const sorted = [...products].sort((a,b)=> b.sales - a.sales).slice(0,3);
+        document.getElementById("topProductsAssociate").innerHTML = sorted.map(p => `<li>${escapeHtml(p.name)} - ${p.sales} ventas</li>`).join("");
+    }
+
+    function simulateAssociateSale() {
+        if(products.length === 0) return;
+        let random = products[Math.floor(Math.random() * products.length)];
+        random.sales += 1;
+        let comm = random.price * COMMISSION;
+        associateStats.referredSales += 1;
+        associateStats.totalCommission += comm;
+        saveData();
+        fullRender();
+        showToast(`🤝 Venta referida: ${random.name} +${comm.toFixed(2)}€ comisión`, "#2563eb");
+    }
+
+    function processCheckout() {
+        if(cart.length === 0) { showToast("Carrito vacío", "#b91c1c"); return; }
+        let total = 0;
+        cart.forEach(item => {
+            let prod = products.find(p => p.id === item.id);
+            if(prod) {
+                let available = prod.stock - (prod.reserved || 0);
+                if(available >= item.quantity) {
+                    prod.stock -= item.quantity;
+                    prod.sales += item.quantity;
+                    total += prod.price * item.quantity;
+                    if(currentRole === "associate") {
+                        associateStats.referredSales += item.quantity;
+                        associateStats.totalCommission += (prod.price * item.quantity * COMMISSION);
+                    }
+                } else { showToast(`Stock insuficiente para ${prod.name}`, "#b91c1c"); return; }
+            }
+        });
+        cart = [];
+        saveData();
+        fullRender();
+        showToast(`🦋 Compra realizada. Total: ${total.toFixed(2)}€. Gracias por confiar en La Mariposa.`, "#0f5c3e");
+    }
+
+    function fullRender() {
+        renderProductsGrid(document.getElementById("searchInput")?.value || "");
+        if(isAdmin) renderAdminProductList();
+        if(isAdmin) renderReservationsList();
+        if(currentRole === "associate") renderAssociatePanel();
+        updateCartBadge();
+    }
+
+    function setRole(role) {
+        if(!isAdmin && role === "admin") {
+            showAdminLockModal();
+            return;
+        }
+        currentRole = role;
+        document.getElementById("adminSection").style.display = role === "admin" ? "block" : "none";
+        document.getElementById("associateSection").style.display = role === "associate" ? "block" : "none";
+        document.querySelectorAll(".role-btn").forEach(btn => {
+            if(btn.getAttribute("data-role") === role) btn.classList.add("active");
+            else btn.classList.remove("active");
+        });
+        if(role === "associate") renderAssociatePanel();
+    }
+
+    function addProduct() {
+        if(!isAdmin) return;
+        let name = document.getElementById("prodName").value.trim();
+        let price = parseFloat(document.getElementById("prodPrice").value);
+        let stock = parseInt(document.getElementById("prodStock").value);
+        let icon = document.getElementById("prodIcon").value.trim() || "fa-box";
+        if(!name || isNaN(price) || price<=0 || isNaN(stock) || stock<0) { showToast("Datos inválidos", "#b91c1c"); return; }
+        const newId = "p"+Date.now();
+        products.push({ id: newId, name, price, stock, icon: icon.startsWith("fa")? icon : "fa-"+icon, sales: 0, reserved: 0 });
+        saveData();
+        fullRender();
+        document.getElementById("prodName").value = "";
+        document.getElementById("prodPrice").value = "";
+        document.getElementById("prodStock").value = "";
+        document.getElementById("prodIcon").value = "";
+        showToast("Producto agregado", "#0f5c3e");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadData();
+        showLoginScreen();
+        
+        // Eventos Login
+        document.getElementById("loginBtn").addEventListener("click", handleLogin);
+        document.getElementById("loginEmail").addEventListener("keypress", (e) => { if(e.key === "Enter") handleLogin(); });
+        document.getElementById("loginPassword").addEventListener("keypress", (e) => { if(e.key === "Enter") handleLogin(); });
+        
+        // Eventos Logout
+        document.getElementById("logoutBtn").addEventListener("click", handleLogout);
+        
+        // Eventos navegación
+        document.getElementById("searchBtn").addEventListener("click", () => renderProductsGrid(document.getElementById("searchInput").value));
+        document.getElementById("searchInput").addEventListener("keyup", (e) => renderProductsGrid(e.target.value));
+        document.getElementById("addProductBtn").addEventListener("click", addProduct);
+        document.querySelectorAll(".role-btn").forEach(btn => btn.addEventListener("click", () => setRole(btn.getAttribute("data-role"))));
+        document.getElementById("adminBtnHeader").addEventListener("click", () => setRole("admin"));
+        document.getElementById("associateBtnHeader").addEventListener("click", () => setRole("associate"));
+        document.getElementById("cartIconHeader").addEventListener("click", () => {
+            if(cart.length === 0) showToast("Carrito vacío", "#6c757d");
+            else processCheckout();
+        });
+        document.getElementById("reservationsHeader").addEventListener("click", () => {
+            if(reservations.length === 0) showToast("No tienes reservas activas", "#6c757d");
+            else showToast(`Tienes ${reservations.length} reserva(s). Revisa el panel Admin.`, "#3b82f6");
+        });
+        document.getElementById("copyLinkBtn")?.addEventListener("click", () => {
+            let linkInput = document.getElementById("associateLink");
+            linkInput.select(); document.execCommand("copy");
+            showToast("Enlace copiado", "#3b82f6");
+        });
+        document.getElementById("simulateSaleBtn")?.addEventListener("click", simulateAssociateSale);
+    });
+    
+    function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, function(m){ return m==='&'?'&amp;': m==='<'?'&lt;':'&gt;';}); }
+</script>
+</body>
+</html>
